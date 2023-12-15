@@ -2,7 +2,7 @@
 SET @Delta = 0
 SET @Language = 'ENU' 
 SET @MaxState = ( SELECT MAX(EntityTransactionLogId) FROM EntityChangeLog WITH(NOLOCK) )
-SET @MaxStateDate = ( SELECT TimeAdded FROM EntityTransactionLog WERE EntityTransactionLogld = @MaxState )
+SET @MaxStateDate = ( SELECT TimeAdded FROM EntityTransactionLog WhERE EntityTransactionLogId = @MaxState )
 
 SELECT  LT.LTValue AS 'Display Name', 
         S.State AS 'Current Workflow Watermark', 
@@ -14,7 +14,7 @@ SELECT  LT.LTValue AS 'Display Name',
         S.IsPeriodicQueryEvent AS 'Is Periodic Query Subscription' --Note: 1 means it is a periodic query subscription R.RuleEnabled AS 'Rule Enabled', -- Note: 4 means the rule is enabled R.RuleID 
 FROM CmdbInstanceSubscriptionState AS S WITH(NOLOCK) 
 LEFT OUTER JOIN Rules AS R ON S.RuleId = R.RuleId 
-LEFT OUTER JOIN ManagedType AS MT ON S.Typeld = MT.ManagedTypeId 
+LEFT OUTER JOIN ManagedType AS MT ON S.TypeId = MT.ManagedTypeId 
 LEFT OUTER JOIN LocalizedText AS LT On R.RuleId = LT.MPElementId 
 
 WHERE S.State <= @MaxState - @Delta 
