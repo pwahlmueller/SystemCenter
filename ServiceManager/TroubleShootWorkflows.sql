@@ -1,4 +1,6 @@
-﻿DECLARE @MaxState INT, @MaxStateDate Datetime, @Delta INT, @Language nvarchar(3) 
+﻿-- Get Minutes behind
+
+DECLARE @MaxState INT, @MaxStateDate Datetime, @Delta INT, @Language nvarchar(3) 
 SET @Delta = 0
 SET @Language = 'ENU' 
 SET @MaxState = ( SELECT MAX(EntityTransactionLogId) FROM EntityChangeLog WITH(NOLOCK) )
